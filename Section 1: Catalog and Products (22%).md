@@ -243,6 +243,7 @@
 - B) Grouped Product
 - C) Bundle Product
 - D) Simple Product with Custom Options
+
 **Answer: C — Bundle Product.** Bundle products let customers select optional/required components with a dynamically calculated total.
 
 **Q2.** A dining set (table + 4 chairs) where each piece is also sold individually at its own price, and the customer chooses quantities of each. Which product type?
@@ -250,6 +251,7 @@
 - B) Grouped Product
 - C) Configurable Product
 - D) Virtual Product
+
 **Answer: B — Grouped Product.** Independently priced, independently purchasable items displayed together.
 
 **Q3.** A configurable product has a child variant (Small) out of stock while other sizes remain in stock, with "Display Out of Stock Products" disabled. Storefront effect?
@@ -257,6 +259,7 @@
 - B) Small option not selectable/shown
 - C) Small shows with a warning
 - D) Price auto-increases
+
 **Answer: B.** Only the specific out-of-stock variant is excluded; the parent remains visible if other variants are in stock.
 
 **Q4.** A merchant wants 15% off for the "Wholesale" group on all "Outdoor Gear" category products, no coupon, reflected directly in displayed price. What's configured?
@@ -264,6 +267,7 @@
 - B) Catalog Price Rule scoped to group + category
 - C) Special Price per product
 - D) Tier Pricing per product
+
 **Answer: B — Catalog Price Rule.** Applies automatically, no code, modifies displayed price.
 
 **Q5.** Customers buying 10+ units should automatically get a lower per-unit price, visible on the PDP before adding to cart. Which feature?
@@ -271,6 +275,7 @@
 - B) Catalog Price Rule
 - C) Tier Pricing
 - D) Special Price
+
 **Answer: C — Tier Pricing.** Quantity-based price breaks configured directly on the product.
 
 **Q6.** For a dropdown attribute to appear as a layered nav filter, which must ALL be true?
@@ -278,6 +283,7 @@
 - B) "Use in Layered Navigation" enabled + category set as Anchor
 - C) Used in Product Listing + Comparable
 - D) Assigned to default attribute set only
+
 **Answer: B.** Attribute-level filterable setting AND category Is Anchor = Yes must both be true.
 
 **Q7.** Warehouses in NY and LA, both in the same Stock assigned to the US website. Order comes from California. With default SSA, how is the fulfilling source determined?
@@ -285,6 +291,7 @@
 - B) Priority ranking of sources within the Stock
 - C) Random selection
 - D) Always split evenly
+
 **Answer: B.** Default SSA is Priority-based, not distance-based.
 
 **Q8.** A product shows quantity 50 but the merchant wants it to appear unavailable immediately, without changing quantity. What to configure?
@@ -292,6 +299,7 @@
 - B) Set quantity to 0
 - C) Disable the product
 - D) Set Backorders to No
+
 **Answer: A.** Stock Status is independent from the quantity field.
 
 **Q9.** SKU must stay identical across US and Canadian (French) store views, but Description should differ. Correct scope pairing?
@@ -299,6 +307,7 @@
 - B) SKU: Global, Description: Store View
 - C) Both: Website
 - D) Both: Global
+
 **Answer: B.** SKU is always Global; Description can be Store View scope for localization.
 
 **Q10.** A bundle is configured with Fixed pricing. What does this mean for the storefront price?
@@ -306,6 +315,7 @@
 - B) Price stays the same regardless of selections
 - C) Price = highest-priced option only
 - D) Fixed pricing disables option selection
+
 **Answer: B.** Fixed pricing = one set price no matter what's selected.
 
 ---
@@ -317,6 +327,7 @@
 - B) Bundle Product (Dynamic)
 - C) Bundle Product (Fixed)
 - D) Configurable Product
+
 **Answer: B.** Picking a subset FROM options with variable pricing = Bundle, Dynamic.
 
 **Q2.** A cleanser, toner, and moisturizer — each already individually listed with own prices — shown together on one page, each keeping its own price and becoming separate cart line items.
@@ -324,6 +335,7 @@
 - B) Grouped Product
 - C) Bundle (Dynamic)
 - D) Simple with Custom Options
+
 **Answer: B — Grouped Product.** Existing standalone products displayed together; separate cart lines.
 
 **Q3.** The merchant wants the assembled product to appear as ONE cart line item regardless of how many components were selected. Which type must this be?
@@ -331,6 +343,7 @@
 - B) Bundle Product
 - C) Either, depending on settings
 - D) Configurable Product only
+
 **Answer: B.** Bundle always collapses into a single cart line; Grouped always creates separate lines.
 
 **Q4.** A bundle with Fixed pricing at $99. Customer selects a premium option that would normally add $20 in a dynamic bundle. Final price at checkout?
@@ -338,6 +351,7 @@
 - B) $119, Fixed still adds surcharges
 - C) $79
 - D) Cannot be determined
+
 **Answer: A — $99.** Fixed pricing means total doesn't change with selections.
 
 **Q5.** Which statement correctly distinguishes the KEY structural difference between Bundle and Grouped?
@@ -345,6 +359,7 @@
 - B) Grouped links existing independent products for display; Bundle defines selectable options/components combining into one purchasable unit
 - C) Bundle never has a price
 - D) Grouped always requires a coupon
+
 **Answer: B.**
 
 ---
@@ -356,6 +371,7 @@
 - B) Each component's stock deducted independently, potentially from different sources
 - C) Only the first component's stock is deducted
 - D) Stock deduction disabled entirely
+
 **Answer: B.**
 
 **Q2.** How does MSI inventory tracking work for a Grouped product vs. its children?
@@ -363,6 +379,7 @@
 - B) Ship Bundle Items setting determines Grouped deduction
 - C) Each child has fully independent inventory; the Grouped parent holds no stock itself
 - D) Grouped requires a single shared source across children
+
 **Answer: C.**
 
 **Q3.** A bundle set to "Ship Bundle Items Together," but the two components are only stocked at two different, non-overlapping warehouses. What issue does this create?
@@ -370,6 +387,7 @@
 - B) "Together" assumes fulfillment from a single source, which breaks down if components only exist at different locations
 - C) "Together" only works with Fixed pricing
 - D) "Together" auto-enables backorders
+
 **Answer: B.**
 
 **Q4.** Within a Grouped product, one of three linked children has 0 saleable quantity (Out of Stock) while the other two remain In Stock. Storefront effect?
@@ -377,6 +395,7 @@
 - B) Out-of-stock child's price hidden but purchasable
 - C) Out-of-stock child shown as unavailable/hidden; others remain purchasable
 - D) All children auto-backordered
+
 **Answer: C.**
 
 **Q5.** Considering MSI reservations: how does the reservation record differ between a Bundle (Ship Together) and a Grouped product when ordered?
@@ -384,6 +403,7 @@
 - B) Bundle (Together) creates one coordinated reservation tied to a single cart line; Grouped creates separate, independent reservations per child line item
 - C) Neither uses MSI reservations
 - D) Only Grouped triggers reservations
+
 **Answer: B.**
 
 ---
@@ -395,6 +415,7 @@
 - B) "With results" hides options that would return 0 products; "no results" still shows them
 - C) "No results" disables the filter entirely
 - D) "With results" only works on Price attributes
+
 **Answer: B.**
 
 **Q2.** "Use in Layered Navigation" is set to "Filterable (with results)" but the attribute's Input Type is "Text Field," and it still won't filter. What's the issue?
@@ -402,6 +423,7 @@
 - B) Multiple Select
 - C) Text Field
 - D) Price
+
 **Answer: C — Text Field.** Layered nav filtering requires Dropdown, Multiple Select, or Price input types.
 
 **Q3.** Attribute is correctly Dropdown, indexed, and Filterable — but subcategory products/filters aren't appearing on the parent category page. Likely misconfiguration?
@@ -409,6 +431,7 @@
 - B) Parent category's "Is Anchor" must be Yes
 - C) Attribute needs a new Attribute Set
 - D) Reindexing has no effect
+
 **Answer: B.**
 
 **Q4.** URL Key needs to differ between English (/blue-shirt) and French (/chemise-bleue) store views. Required scope?
@@ -416,6 +439,7 @@
 - B) Website
 - C) Store View
 - D) No configurable scope
+
 **Answer: C.**
 
 **Q5.** Functional difference between Attribute Set and Attribute Group?
@@ -423,6 +447,7 @@
 - B) Group determines available attributes; Set is cosmetic
 - C) Both directly affect layered nav
 - D) Same concept, two names
+
 **Answer: A.**
 
 **Q6.** Configurable Product uses "Color" as the defining attribute for child variations. Required scope?
@@ -430,6 +455,7 @@
 - B) Store View — so each store defines variations independently
 - C) Website — to align with per-website pricing
 - D) Scope doesn't matter
+
 **Answer: A.**
 
 ---
@@ -441,6 +467,7 @@
 - B) Add "Fabric Weight" to the product's Attribute Set
 - C) Groups automatically inherit new attributes from other sets
 - D) Just reindex the catalog
+
 **Answer: B.** New fields require the Attribute Set, not a Group.
 
 **Q2.** A merchant reorders/renames Attribute Groups purely for Admin UI convenience. Effect on storefront?
@@ -448,6 +475,7 @@
 - B) Product URL structure affected
 - C) Nothing changes on storefront — only the Admin edit screen layout is affected
 - D) Attribute scope resets
+
 **Answer: C.**
 
 **Q3.** Containment relationship between Attribute Sets and Attribute Groups?
@@ -455,6 +483,7 @@
 - B) One Group can contain multiple Sets
 - C) No containment relationship
 - D) Each Set can only have one Group
+
 **Answer: A.**
 
 ---
@@ -466,6 +495,7 @@
 - B) Price of the first-created child
 - C) Lowest price among available/in-stock variants
 - D) Highest price
+
 **Answer: C.**
 
 **Q2.** A Catalog Price Rule for 20% off "Sale" category is saved, but the storefront discount isn't showing yet. Most likely explanation?
@@ -473,6 +503,7 @@
 - B) Catalog Rule Price indexer hasn't run since the rule was saved
 - C) Catalog rules never affect displayed price
 - D) Rule needs "Discard subsequent rules" to activate
+
 **Answer: B.**
 
 **Q3.** A Cart Price Rule offers 10% off orders over $100, no coupon required. Effect on the PDP/category listing price?
@@ -480,6 +511,7 @@
 - B) Catalog/PDP price remains unchanged; discount only applies once in the cart
 - C) Category listing auto-updates to reflect cart rule
 - D) Requires the Catalog Price Rule indexer
+
 **Answer: B.**
 
 **Q4.** A merchant wants to send 5,000 customers a unique, single-use discount code each via email. Which Cart Price Rule coupon setting?
@@ -487,6 +519,7 @@
 - B) Specific Coupon
 - C) Auto-generated (Coupon Qty)
 - D) Cannot generate multiple codes
+
 **Answer: C.**
 
 **Q5.** MAP policy: price hidden on PDP, but customer can click "See price" to reveal it in a popup without adding to cart. Which MAP Display Actual Price setting?
@@ -494,6 +527,7 @@
 - B) On Gesture
 - C) Before Order Confirmation
 - D) Use config
+
 **Answer: B.**
 
 **Q6.** Two websites (USD and EUR) share one catalog but need entirely independent prices per website for the same SKUs. What must be configured?
@@ -501,6 +535,7 @@
 - B) Separate Attribute Set per website
 - C) Tier Pricing scoped per group per website
 - D) Price is always Global and cannot vary
+
 **Answer: A.**
 
 **Q7.** A bundle has one Required option and one Optional option. Effect on Add to Cart button?
@@ -508,6 +543,7 @@
 - B) Neither affects the button
 - C) Required must be selected before Add to Cart is enabled; Optional can be skipped
 - D) Optional must be selected first
+
 **Answer: C.**
 
 ---
@@ -519,6 +555,7 @@
 - B) Sales Channel assigned to multiple Stocks, each Stock has one Source
 - C) One or more Sources assigned to a Stock; each Sales Channel (Website) assigned to one Stock
 - D) All independent, no assignment relationship
+
 **Answer: C.**
 
 **Q2.** Why does MSI use reservations instead of directly decrementing quantity at order time?
@@ -526,6 +563,7 @@
 - B) Avoids DB row-locking on the quantity column during high-concurrency checkouts
 - C) Only used for virtual products
 - D) Replaces the need for a Source entirely
+
 **Answer: B.**
 
 **Q3.** A product shows Source Quantity of 20 at a warehouse, but Salable Quantity displays as 0 on the storefront. Explanation?
@@ -533,6 +571,7 @@
 - B) Reservations against the product have consumed the available quantity
 - C) Stock Status was manually set Out of Stock
 - D) Only occurs when Manage Stock is disabled
+
 **Answer: B.**
 
 **Q4.** East Coast website must draw ONLY from the East Coast warehouse, West Coast website ONLY from the West Coast warehouse, zero overlap. Configuration?
@@ -540,6 +579,7 @@
 - B) One Source per website but shared Stock
 - C) Two separate Stocks, each with its respective Source, each assigned to its corresponding website
 - D) Not supported
+
 **Answer: C.**
 
 **Q5.** Two brands share one warehouse and want both websites to draw from the SAME physical inventory pool. Is assigning one Source to two different Stocks supported?
@@ -547,6 +587,7 @@
 - B) Fully supported — a Source can be assigned to multiple Stocks simultaneously
 - C) Requires duplicating the Source
 - D) Requires reverting to Single Source mode
+
 **Answer: B.**
 
 **Q6.** A high-priority Source is NOT assigned to the Stock used by the order's website. Will SSA ever select it?
@@ -554,6 +595,7 @@
 - B) Always selected first regardless of Stock assignment
 - C) Only if all Sources in the assigned Stock are out of stock
 - D) SSA auto-reassigns the Source
+
 **Answer: A.**
 
 **Q7.** A merchant on legacy Single Source mode wants to track stock separately across two warehouses. Fundamental limitation to address?
@@ -561,4 +603,5 @@
 - B) Single Source has one combined quantity/status with no concept of separate physical locations; MSI is needed
 - C) Only available for virtual products
 - D) Requires a separate installation
+
 **Answer: B.**
