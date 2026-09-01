@@ -1,4 +1,4 @@
-# (AD0-E723) Practice Test Review
+# AD0-E723 Practice Test Review
 ### Adobe Commerce Business Practitioner Professional — Questions, Explanations & Exam Traps
 
 ---
