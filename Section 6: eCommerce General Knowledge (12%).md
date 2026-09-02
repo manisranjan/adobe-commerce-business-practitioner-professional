@@ -17,6 +17,8 @@
 | **LGPD** | Brazil | Brazilian residents' data | Similar to GDPR |
 | **PCI DSS** | Global (card industry) | Anyone storing/processing/transmitting card data | Secure cardholder data (covered in 6.2) |
 
+> **⚠️ Exam Trap:** GDPR = EU/EEA (opt-in consent), CCPA/CPRA = California (opt-out of sale) — a scenario that names a European country points to GDPR, never CCPA.
+
 ### Key privacy concepts (high-yield)
 
 - **Personal data / PII**: any info identifying a person (name, email, address, IP, order history).
@@ -25,6 +27,8 @@
 - **Data portability**: provide the customer's data in a portable format.
 - **Data minimization**: collect only what you need.
 - **Breach notification**: GDPR requires notifying authorities within **72 hours**.
+
+> **⚠️ Exam Trap:** Under GDPR consent must be an active opt-in — pre-ticked boxes or "continued browsing" are not valid consent, even though they feel convenient.
 
 ### How Adobe Commerce supports privacy
 
@@ -45,6 +49,8 @@
 | Practical features | Alt text on images, keyboard navigation, sufficient color contrast, form labels, semantic HTML, ARIA where needed |
 
 **Accessibility cues in scenarios**: adding **alt text**, ensuring **keyboard-only navigation**, **color contrast**, **screen-reader** support → all WCAG/accessibility answers. Adobe Commerce themes (e.g., Luma/Blank) provide a baseline, but merchants are responsible for content-level accessibility (alt text, headings, contrast).
+
+> **⚠️ Exam Trap:** The practical/legal accessibility benchmark is WCAG **AA**, not the stricter AAA — pick AA when a question asks for the standard target level.
 
 ### Traps
 
@@ -72,11 +78,15 @@
 | **Hosted fields / iframe / Direct Post / tokenization** (e.g., Braintree Hosted Fields, Stripe Elements) | Card fields are served by the gateway inside the merchant page; card data goes straight to gateway, merchant gets a **token** | ❌ No (data bypasses server) | Low (**SAQ A / A-EP**) |
 | **Direct API / on-server capture** | Merchant page collects card data and posts it through its **own server** to the gateway | ✅ Yes | Highest (**SAQ D**) — full PCI DSS |
 
+> **⚠️ Exam Trap:** Lower PCI scope is about whether card data touches your server, not whether a third party is involved — a PayPal redirect is *more* compliant (SAQ A), not less.
+
 ### Key PCI concepts
 
 - **Tokenization**: replace card number with a non-sensitive **token**; merchant stores the token, not the PAN. Reduces scope.
 - **PAN** (Primary Account Number): the card number — the most sensitive data.
 - **Never store**: full magnetic stripe, **CVV/CVC**, or PIN after authorization. (CVV must never be stored.)
+
+> **⚠️ Exam Trap:** Storing the CVV is never compliant — encryption or tokenization does not make it acceptable, so any answer that stores CVV is automatically wrong.
 - **Encryption in transit**: TLS/HTTPS everywhere for checkout.
 - **SAQ** (Self-Assessment Questionnaire): the level (A, A-EP, D…) depends on how much card data you handle.
 - **Vault / stored cards**: modern gateways store the card **vaulted at the gateway** and give the merchant a token for repeat billing — keeps PCI scope low.
@@ -122,6 +132,8 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 | **Layered navigation / crawlable categories** | Category structure | Better site architecture for crawling |
 | **Hreflang** (multi-store views) | For multi-language stores | Signals language/region variants |
 
+> **⚠️ Exam Trap:** Duplicate-content problems are solved with **canonical tags**, while a changed URL key needs a **301 redirect** — don't reach for a 301 to fix duplicates or a canonical to preserve a moved page.
+
 ### Key SEO concepts
 
 - **Canonical URL**: tells search engines the "master" version of a page to avoid duplicate content (important for products in multiple categories, filtered URLs).
@@ -149,6 +161,35 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 
 ---
 
+## 6.4 Site Performance, Mobile & Structured Data
+
+Modern SEO and eCommerce UX go beyond keywords — search engines reward fast, mobile-friendly, well-structured pages.
+
+### Core Web Vitals & performance
+- **Core Web Vitals** are Google's page-experience metrics and a ranking signal:
+  - **LCP** (Largest Contentful Paint) — loading speed of the main content
+  - **INP** (Interaction to Next Paint, which replaced FID) — responsiveness to input
+  - **CLS** (Cumulative Layout Shift) — visual stability (elements not jumping around)
+- **HTTPS is itself a ranking signal** — secure sites are favored (ties back to PCI/checkout security).
+- Adobe Commerce performance levers: **Full Page Cache** (Fastly/Varnish), **image optimization / lazy loading**, **CDN**, **flat catalog / proper indexing**, and minimizing third-party scripts.
+
+### Mobile
+- **Google uses mobile-first indexing** — the mobile version of a page is what's primarily crawled and ranked.
+- **Responsive design** (the storefront adapts to screen size) is the expected baseline; Adobe Commerce's Luma theme is responsive.
+
+### Structured data (Schema.org / rich results)
+- **Structured data** (Schema.org markup, usually JSON-LD) describes page content to search engines, enabling **rich results** (star ratings, price, availability, breadcrumbs) in the SERP.
+- Adobe Commerce's Luma theme includes basic product schema; deeper/rich structured data often needs theme work or an extension.
+- Rich results can improve click-through even without changing ranking directly.
+
+### Cookie categories (privacy overlap)
+- **First-party vs third-party cookies** — first-party are set by your domain; third-party by external domains (ads/analytics) and are increasingly restricted by browsers.
+- **Essential vs non-essential cookies** — essential (cart/session) may be exempt from consent; non-essential (marketing/analytics) require consent under GDPR. **Cookie Restriction Mode** gates the non-essential ones.
+
+> **⚠️ Exam Trap:** Core Web Vitals (LCP, **INP** — not the old FID — and CLS), mobile-first indexing, and HTTPS are ranking/experience factors distinct from on-page tags like title/meta. **Structured data drives rich results (enhanced SERP snippets)**, which is different from canonical tags (duplicate content) or sitemaps (discovery). Only **non-essential** cookies require consent — essential cart/session cookies generally don't.
+
+---
+
 ## Quick-Reference Cheat Sheet (highest-yield)
 
 - **GDPR = EU** (opt-in consent, right to erasure, 72h breach). **CCPA/CPRA = California** (opt-out of sale).
@@ -170,9 +211,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) PIPEDA
 - D) LGPD
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **GDPR** governs EU/EEA residents' personal data.
+**Answer:** B
+
+**Explanation:** **GDPR** governs the personal data of EU/EEA residents, so a store selling to customers in Germany and France falls under it regardless of where the merchant is based.
+
+**Exam Trap:** GDPR applies based on where the *data subjects* are, not where the company is headquartered — a US-based merchant selling to EU shoppers is still bound by GDPR.
+
 </details>
 
 **Q2.** Under **GDPR**, a valid consent for marketing cookies must be:
@@ -181,9 +227,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) An explicit, informed opt-in action
 - D) Assumed unless the user opts out
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**C** — GDPR requires **explicit, informed opt-in**; pre-ticked boxes and opt-out models are not valid consent.
+**Answer:** C
+
+**Explanation:** GDPR requires **explicit, informed opt-in** consent; the user must take a clear affirmative action before non-essential cookies are set.
+
+**Exam Trap:** Pre-ticked boxes and "consent by continuing to browse" look like opt-in but are explicitly invalid under GDPR — the opt-out model belongs to CCPA, not GDPR.
+
 </details>
 
 **Q3.** Which Adobe Commerce setting prompts shoppers for **cookie consent** before setting non-essential cookies?
@@ -192,9 +243,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Content Staging
 - D) URL Rewrites
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **Cookie Restriction Mode** (Stores → Config → Web → Default Cookie Settings).
+**Answer:** B
+
+**Explanation:** **Cookie Restriction Mode** (Stores → Config → General → Web → Default Cookie Settings) is the built-in Adobe Commerce feature that asks shoppers for cookie consent before setting non-essential cookies.
+
+**Exam Trap:** The other options are real Commerce features but unrelated to privacy — Cookie Restriction Mode is the specific setting; there is no separate "GDPR mode" toggle to select instead.
+
 </details>
 
 **Q4.** What is the common legal **accessibility benchmark** for websites?
@@ -203,9 +259,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) WCAG Level AAA
 - D) PCI SAQ A
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **WCAG 2.x Level AA** is the widely adopted legal/target standard.
+**Answer:** B
+
+**Explanation:** **WCAG 2.x Level AA** is the widely adopted legal and target benchmark for accessible websites, referenced by regulations like the ADA and EN 301 549.
+
+**Exam Trap:** AAA is stricter but rarely required or fully achievable across a site — don't pick the highest level assuming "more is better"; AA is the correct practical target.
+
 </details>
 
 **Q5.** Which four principles underpin WCAG accessibility?
@@ -214,9 +275,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Private, Open, Universal, Responsive
 - D) Portable, Observable, Unified, Reachable
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **POUR**: Perceivable, Operable, Understandable, Robust.
+**Answer:** B
+
+**Explanation:** The four WCAG principles are **POUR** — Perceivable, Operable, Understandable, and Robust.
+
+**Exam Trap:** The distractors use plausible security/UX buzzwords (Secure, Optimized, Reliable) — POUR is a fixed accessibility acronym, so don't be lured by option words that sound technical but aren't part of WCAG.
+
 </details>
 
 **Q6.** A checkout **redirects the customer to PayPal's site** to enter card details, then returns them. Regarding PCI scope, this flow is:
@@ -225,9 +291,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Non-compliant because it uses a third party
 - D) Only compliant if the merchant stores the CVV
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — Redirect/hosted flows keep card data off the merchant server → **lowest PCI scope (SAQ A)**.
+**Answer:** B
+
+**Explanation:** A redirect/hosted flow sends the customer to PayPal's own site to enter card details, so raw card data never touches the merchant server — this yields the **lowest PCI scope (SAQ A)**.
+
+**Exam Trap:** Using a third party does not make a flow non-compliant — it's the opposite; keeping card data off your server is exactly what *reduces* PCI burden.
+
 </details>
 
 **Q7.** A merchant's custom checkout **collects card numbers and stores the CVV** in its own database for future use. This is:
@@ -236,9 +307,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Non-compliant — CVV must never be stored
 - D) Compliant under SAQ A
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**C** — **Storing CVV is never allowed** under PCI DSS; this is non-compliant.
+**Answer:** C
+
+**Explanation:** Storing the **CVV** after authorization is never permitted under PCI DSS, so collecting card numbers and retaining the CVV makes this checkout non-compliant.
+
+**Exam Trap:** Encryption or tokenization does not rescue this — the prohibition on storing CVV is absolute, so any answer that keeps the CVV "securely" is still wrong.
+
 </details>
 
 **Q8.** **Tokenization** in a payment flow means:
@@ -247,9 +323,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Redirecting to the bank
 - D) Storing the CVV securely
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — Tokenization swaps the **PAN for a token**, reducing PCI scope; the merchant stores the token, not the card number.
+**Answer:** B
+
+**Explanation:** Tokenization replaces the **PAN with a non-sensitive token**; the merchant stores the token instead of the card number, which reduces PCI scope.
+
+**Exam Trap:** Tokenization is not the same as encryption — encryption transforms data that can be reversed with a key, while a token is a meaningless surrogate that removes the real card number from scope entirely.
+
 </details>
 
 **Q9.** PCI DSS applies to any organization that does which of the following with cardholder data?
@@ -258,9 +339,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Stores, processes, or transmits it
 - D) Only displays it
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**C** — PCI applies to **store, process, OR transmit** — any of the three.
+**Answer:** C
+
+**Explanation:** PCI DSS applies to any organization that **stores, processes, OR transmits** cardholder data — doing any one of the three brings you into scope.
+
+**Exam Trap:** PCI obligations don't start only when you *store* card data — merely transmitting or processing it (e.g., passing it through your server) is enough to trigger compliance requirements.
+
 </details>
 
 **Q10.** The same product appears under **three categories**, creating **duplicate URLs**. Which SEO feature addresses this?
@@ -269,9 +355,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) 301 redirect
 - D) Meta keywords
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **Canonical tags** designate the master URL and prevent duplicate-content penalties.
+**Answer:** B
+
+**Explanation:** **Canonical tags** designate the single master URL for a product that appears under multiple categories, preventing duplicate-content penalties.
+
+**Exam Trap:** A 301 redirect would break the legitimate multi-category access, and an XML sitemap only aids discovery — canonical tags are the right tool for duplicate URLs that must all keep working.
+
 </details>
 
 **Q11.** A merchant **changes a product's URL key** and wants to keep rankings and avoid 404s. What should happen?
@@ -280,9 +371,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Delete the old URL from the sitemap
 - D) Add a canonical tag only
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — Use a **301 permanent redirect**; Adobe Commerce can auto-create one ("Create Permanent Redirect for old URL").
+**Answer:** B
+
+**Explanation:** A **301 permanent redirect** preserves rankings and avoids 404s when a URL key changes; Adobe Commerce can auto-create one via "Create Permanent Redirect for old URL."
+
+**Exam Trap:** A 302 is temporary and does not pass link equity, and a canonical tag alone won't stop the old URL from 404ing — a permanent move needs a 301.
+
 </details>
 
 **Q12.** Which Adobe Commerce feature helps **search engines discover all store pages**?
@@ -291,9 +387,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Layered navigation
 - D) Cart Price Rules
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — The **XML Sitemap** lists URLs for crawlers; submit it to search engines.
+**Answer:** B
+
+**Explanation:** The **XML Sitemap** lists all store URLs for crawlers and can be submitted to search engines so they discover every page.
+
+**Exam Trap:** Layered navigation helps shoppers browse but doesn't guarantee crawler discovery of all pages — the XML sitemap is the feature purpose-built for search-engine discovery.
+
 </details>
 
 **Q13.** To improve the **title and description shown in Google search results** for a category page, you edit:
@@ -302,9 +403,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) The canonical tag
 - D) The URL suffix
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**A** — **Meta title/description** control the SERP snippet.
+**Answer:** A
+
+**Explanation:** The category's **meta title and meta description** control the title and description shown in the Google search-results snippet.
+
+**Exam Trap:** The canonical tag, robots.txt, and URL suffix influence indexing or URLs — none of them change the visible SERP snippet text, which is driven by the meta fields.
+
 </details>
 
 **Q14.** Which US privacy law gives consumers the right to **opt out of the sale of their personal data**?
@@ -313,9 +419,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) CCPA/CPRA
 - D) PCI DSS
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**C** — **CCPA/CPRA** (California) centers on the **opt-out of sale/sharing** model.
+**Answer:** C
+
+**Explanation:** **CCPA/CPRA** (California) gives consumers the right to **opt out of the sale or sharing** of their personal data, along with rights to know and delete.
+
+**Exam Trap:** GDPR's model is opt-in consent, not opt-out of sale — don't map the "opt-out of sale" right to GDPR; it's the signature CCPA/CPRA concept.
+
 </details>
 
 **Q15.** Which practice most improves **image accessibility and image SEO** at the same time?
@@ -324,9 +435,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) More product images
 - D) Watermarks
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — **Alt text** aids screen readers (accessibility) and image search (SEO).
+**Answer:** B
+
+**Explanation:** **Descriptive alt text** aids screen readers (accessibility) and gives search engines text to index for image search (SEO) at the same time.
+
+**Exam Trap:** Bigger files, more images, or watermarks don't help either goal — alt text is the single practice that serves accessibility and image SEO simultaneously.
+
 </details>
 
 **Q16.** Under GDPR, a customer requests deletion of all their personal data. This is the right to:
@@ -335,9 +451,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Non-discrimination
 - D) Rectification
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — The **right to erasure / right to be forgotten**.
+**Answer:** B
+
+**Explanation:** Deleting all of a customer's personal data on request is the GDPR **right to erasure**, also called the **right to be forgotten**.
+
+**Exam Trap:** Don't confuse erasure with rectification (correcting data) or portability (exporting data) — only erasure means the data is deleted.
+
 </details>
 
 **Q17.** Which payment integration gives the merchant the **highest PCI burden (SAQ D)**?
@@ -346,9 +467,14 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Collecting card data on the merchant page and posting it through the merchant's own server
 - D) PayPal Express redirect
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**C** — Handling raw card data on your **own server** = full PCI DSS / **SAQ D**.
+**Answer:** C
+
+**Explanation:** Collecting raw card data on the merchant page and posting it through the merchant's **own server** places the merchant in full PCI DSS scope (**SAQ D**).
+
+**Exam Trap:** Redirects and gateway-hosted iframe/tokenized fields keep data off your server (low scope) — the highest burden comes specifically from the flow where card data transits your own infrastructure.
+
 </details>
 
 **Q18.** To remove `index.php` from storefront URLs for cleaner, SEO-friendly links, you:
@@ -357,9 +483,214 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 - C) Regenerate the XML sitemap
 - D) Set Meta Robots to NOINDEX
 
-<details><summary>Answer</summary>
+<details><summary>Answer & Explanation</summary>
 
-**B** — Enable **Web Server Rewrites** (Stores → Config → Web → Search Engine Optimization) to drop `index.php`.
+**Answer:** B
+
+**Explanation:** Enabling **Web Server Rewrites** (Stores → Config → Web → Search Engine Optimization, Use Web Server Rewrites = Yes) removes `index.php` from storefront URLs for cleaner, SEO-friendly links.
+
+**Exam Trap:** Canonical tags, sitemaps, and Meta Robots don't alter URL structure — dropping `index.php` is specifically a Web Server Rewrites setting.
+
+</details>
+
+---
+
+# MCQ — Gap Coverage (Jurisdictions, PCI Levels & SEO Depth)
+
+**Q19.** A Canadian retailer handling Canadian residents' personal data in the private sector is primarily governed by which regulation?
+- A) GDPR
+- B) CCPA/CPRA
+- C) PIPEDA
+- D) LGPD
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** C
+
+**Explanation:** **PIPEDA** governs private-sector handling of personal data in **Canada**. GDPR = EU, CCPA/CPRA = California, LGPD = Brazil.
+
+**Exam Trap:** Each regulation is jurisdiction-specific — match the country in the scenario to the right law; a Canadian retailer is PIPEDA, never GDPR or CCPA.
+
+</details>
+
+**Q20.** Under GDPR, within how long must a qualifying personal-data breach be reported to the supervisory authority?
+- A) 24 hours
+- B) 48 hours
+- C) 72 hours
+- D) 30 days
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** C
+
+**Explanation:** GDPR requires notifying the supervisory authority of a qualifying personal-data breach within **72 hours** of becoming aware of it.
+
+**Exam Trap:** 24 or 48 hours sound stricter and plausible, but the GDPR figure is exactly 72 hours — memorize the number rather than guessing the tightest deadline.
+
+</details>
+
+**Q21.** A merchant uses a gateway-hosted **iframe / hosted fields** integration where card data goes straight to the gateway and the merchant receives only a token. Which PCI SAQ level typically applies, and why?
+- A) SAQ D, because any card entry is full scope
+- B) SAQ A / A-EP, because card data bypasses the merchant server (only a token is handled)
+- C) No SAQ is needed at all
+- D) SAQ D-Merchant, because tokens are cardholder data
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B
+
+**Explanation:** Hosted-fields/iframe/tokenized flows keep raw card data off the merchant server, placing the merchant in the **lowest scope (SAQ A / A-EP)**. Only on-server capture triggers full **SAQ D**.
+
+**Exam Trap:** A token is not cardholder data, so handling only a token does not push you to SAQ D — the SAQ level tracks whether raw card data touches your server, not whether card entry happens on your page.
+
+</details>
+
+**Q22.** A merchant runs the **same catalog in English, French, and German** across store views and wants search engines to serve the right language version to the right region. Which SEO feature signals these language/region variants?
+- A) Canonical tags
+- B) 301 redirects
+- C) Hreflang annotations
+- D) robots.txt
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** C
+
+**Explanation:** **Hreflang** annotations signal language/region variants of the same content across multi-store-view setups, helping search engines serve the correct localized version to each region.
+
+**Exam Trap:** Canonical tags would wrongly collapse the localized versions into one, and 301s would redirect users away — hreflang is the only signal that keeps all language versions live and correctly targeted.
+
+</details>
+
+**Q23.** A merchant temporarily routes an old URL to a new one during a short campaign and wants search engines to keep indexing the original afterward. Which redirect type is appropriate, and how does it differ from a 301?
+- A) 301 — it passes link equity permanently
+- B) 302 (temporary) — it signals the move is temporary so the original URL's ranking is retained, unlike a 301 which is permanent and transfers equity to the new URL
+- C) Canonical tag — redirects are never temporary
+- D) NOINDEX on the old URL
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B
+
+**Explanation:** A **302** is a temporary redirect, so the original URL stays the indexed/ranking page. A **301** is permanent and transfers link equity to the new URL (Adobe Commerce's "Create Permanent Redirect" = 301).
+
+**Exam Trap:** Using a 301 for a short-term move would permanently hand rankings to the temporary URL — match redirect type to intent: 302 for temporary, 301 for permanent.
+
+</details>
+
+**Q24.** A merchant wants a specific thank-you page to exist for customers but never appear in Google's index. Which is the most direct control?
+- A) Add a canonical tag pointing elsewhere
+- B) Set Meta Robots to NOINDEX (or block via robots.txt)
+- C) Delete the page from the XML sitemap only
+- D) Enable Cookie Restriction Mode
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B
+
+**Explanation:** Setting **Meta Robots = NOINDEX** (or a robots.txt disallow) tells search engines not to index the page while it remains accessible to customers.
+
+**Exam Trap:** Removing a page from the XML sitemap does not prevent indexing — if the page is otherwise discoverable (links, direct visits), only a NOINDEX directive reliably keeps it out of the index.
+
+</details>
+
+**Q25.** Which US privacy concept is central to **CCPA/CPRA** but is NOT the primary consent model under **GDPR**?
+- A) Explicit opt-in before any data collection
+- B) The right to **opt out of the sale/sharing** of personal data
+- C) 72-hour breach notification
+- D) Data portability
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B
+
+**Explanation:** **CCPA/CPRA** centers on the **opt-out of sale/sharing** of personal data, whereas **GDPR** requires an explicit opt-in consent model.
+
+**Exam Trap:** Both frameworks include portability and breach concepts, so those don't distinguish them — the defining CCPA-not-GDPR concept is the opt-out of sale/sharing.
+
+</details>
+
+**Q26.** A privacy principle states a business should collect only the personal data actually needed for a stated purpose. What is this principle called?
+- A) Data portability
+- B) Data minimization
+- C) Right to erasure
+- D) Non-discrimination
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B
+
+**Explanation:** **Data minimization** means collecting only the personal data actually needed for a stated purpose. Portability, erasure, and non-discrimination are separate data-subject rights/principles.
+
+**Exam Trap:** "Collect only what you need" describes minimization, not the right to erasure — don't confuse a collection-limiting principle with a rights-based one triggered by a customer request.
+
+</details>
+
+---
+
+# MCQ — Gap Coverage (Performance, Mobile & Structured Data)
+
+**Q27.** Which set of metrics are Google's **Core Web Vitals**, used as a page-experience ranking signal?
+- A) Bounce rate, session duration, pages per visit
+- B) LCP (loading), INP (responsiveness), and CLS (visual stability)
+- C) Title, meta description, and canonical
+- D) Crawl budget, index coverage, and sitemap size
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B — LCP, INP, CLS
+
+**Explanation:** Core Web Vitals are Largest Contentful Paint (loading), Interaction to Next Paint (responsiveness, which replaced FID), and Cumulative Layout Shift (visual stability). They are page-experience signals distinct from on-page meta tags.
+
+**Exam Trap:** INP replaced FID as the responsiveness metric — an answer citing FID is outdated. Core Web Vitals are experience/performance signals, not the same as title/meta tags or crawl settings.
+
+</details>
+
+**Q28.** Google primarily crawls and ranks the mobile version of a site. What is this practice called, and what is the expected storefront design baseline?
+- A) Desktop-first indexing; fixed-width design
+- B) Mobile-first indexing; responsive design
+- C) AMP-only indexing; separate mobile site
+- D) Structured-data indexing; JSON-LD design
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B — Mobile-first indexing; responsive design
+
+**Explanation:** Google uses mobile-first indexing, treating the mobile rendering as the primary version for crawling/ranking. Responsive design (adapting to screen size) is the expected baseline; Adobe Commerce's Luma theme is responsive.
+
+**Exam Trap:** Mobile-first indexing means the *mobile* page content drives ranking — a rich desktop page with a stripped-down mobile version can hurt rankings.
+
+</details>
+
+**Q29.** A merchant wants star ratings, price, and availability to appear directly in Google search results. Which SEO technique enables these rich results?
+- A) Canonical tags
+- B) Structured data (Schema.org, typically JSON-LD)
+- C) 301 redirects
+- D) robots.txt directives
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B — Structured data (Schema.org)
+
+**Explanation:** Structured data markup describes page content to search engines, enabling rich results (ratings, price, availability) in the SERP. Canonicals fix duplicate content, 301s handle moved URLs, and robots.txt controls crawling — none produce rich snippets.
+
+**Exam Trap:** Rich results come from structured data, not from meta tags, canonicals, or sitemaps — match the enhanced-snippet goal to Schema.org markup.
+
+</details>
+
+**Q30.** Under GDPR/cookie-consent rules, which cookies generally require the shopper's consent before being set?
+- A) Essential cart/session cookies
+- B) Non-essential cookies such as marketing and analytics
+- C) All cookies, including strictly necessary ones
+- D) Only first-party cookies
+
+<details><summary>Answer & Explanation</summary>
+
+**Answer:** B — Non-essential (marketing/analytics) cookies
+
+**Explanation:** Essential cookies (cart, session) are generally exempt from consent, while non-essential cookies (marketing, analytics) require consent. Cookie Restriction Mode gates the non-essential ones.
+
+**Exam Trap:** Consent is required for non-essential cookies, not strictly-necessary ones — and the essential/non-essential split matters more than first-party vs third-party for the consent requirement.
+
 </details>
 
 ---
@@ -389,3 +720,11 @@ Ask: **Does raw card data ever hit the merchant's server or database?**
 11. **Meta keywords** field still exists in Adobe Commerce but has negligible SEO value — don't assume it's gone.
 
 12. **SEO-friendly URLs / Web Server Rewrites** removes `index.php`; **URL Rewrites** manage individual page URLs — know the distinction.
+
+13. **Core Web Vitals = LCP, INP, CLS** (INP replaced FID). They are page-experience/performance ranking signals, separate from title/meta tags. HTTPS is also a ranking signal.
+
+14. **Mobile-first indexing** means the mobile version drives crawling/ranking; responsive design is the baseline.
+
+15. **Structured data (Schema.org) produces rich results** (ratings/price/availability in the SERP) — different from canonical tags (duplicate content), 301s (moved URLs), and sitemaps (discovery).
+
+16. **Only non-essential cookies (marketing/analytics) require consent**; essential cart/session cookies generally don't. The essential vs non-essential split drives the consent requirement.
